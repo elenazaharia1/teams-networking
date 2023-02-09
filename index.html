@@ -8,56 +8,61 @@
     <title>Teams-Networking</title>
   </head>
   <body>
-    <table id="teams">
-      <thead>
-        <th>Group</th>
-        <th>Members</th>
-        <th>Project Name</th>
-        <th>Project URL</th>
-        <th></th>
-      </thead>
-      <tbody></tbody>
+    <form action="secretariat" method="get">
+      <table id="teams">
+        <thead>
+          <th>Group</th>
+          <th>Members</th>
+          <th>Project Name</th>
+          <th>Project URL</th>
+          <th></th>
+        </thead>
+        <tbody></tbody>
 
-      <tfoot>
-        <tr>
-          <td>
-            <input
-              type="text"
-              required=""
-              name="promotion"
-              placeholder="Enter group"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              required=""
-              name="members"
-              placeholder="Enter members"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              required=""
-              name="name"
-              placeholder="Enter project name"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              required=""
-              name="url"
-              placeholder="project URL"
-            />
-          </td>
-          <td>
-            <button type="submit">💾</button> <button type="reset">✖</button>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+        <tfoot>
+          <tr>
+            <td>
+              <input
+                type="text"
+                required=""
+                name="promotion"
+                id="promotion"
+                placeholder="Enter group"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                required=""
+                name="members"
+                placeholder="Enter members"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                required=""
+                name="name"
+                id="name"
+                placeholder="Enter project name"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                required=""
+                name="url"
+                id="url"
+                placeholder="Project URL"
+              />
+            </td>
+            <td>
+              <button type="submit">💾</button> <button type="reset">✖</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </form>
     <script src="index.js"></script>
   </body>
 </html>
