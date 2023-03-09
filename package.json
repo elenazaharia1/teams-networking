@@ -1,5 +1,23 @@
 {
   "devDependencies": {
     "prettier": "2.8.4"
-  }
+  },
+  "name": "teams-networking",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elenazaharia1/teams-networking.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elenazaharia1/teams-networking/issues"
+  },
+  "homepage": "https://github.com/elenazaharia1/teams-networking#readme"
 }
