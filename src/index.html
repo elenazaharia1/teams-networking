@@ -4,79 +4,42 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
     <link rel="stylesheet" href="style.css" />
-    <title>Teams Networking</title>
   </head>
   <body>
-    <header>
-      <div id="header-wrapper">
-        <div id="header-">
-          <h1>Teams Networking</h1>
-          <h2>CRUD operations example (Create, Read, Update, Delete)</h2>
-        </div>
-      </div>
-    </header>
-    <section>
-      <form id="editForm" action="" method="POST">
-        <table id="teams">
-          <thead>
-            <tr>
-              <th>Group</th>
-              <th>Members</th>
-              <th>Project Name</th>
-              <th>URL</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-          <tfoot>
-            <tr>
-              <td>
-                <input
-                  type="text"
-                  placeholder="Enter Group"
-                  name="promotion"
-                  id="promotion"
-                  required
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  placeholder="Enter Members"
-                  name="members"
-                  id="members"
-                  required
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  placeholder="Enter Project Name"
-                  name="name"
-                  id="name"
-                  required
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  placeholder="Project URL"
-                  name="url"
-                  id="url"
-                  required
-                />
-              </td>
-              <td>
-                <button type="submit">💾</button>
-                <button type="reset">✖</button>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </form>
-    </section>
-
-    <script src="index.js"></script>
+    <form id="editForm" action="" method="POST">
+      <table border="1" id="teams">
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Members</th>
+            <th>Project Name</th>
+            <th>Project URL</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <input type="text" placeholder="Enter Group" name="promotion" id="promotion" required />
+            </td>
+            <td>
+              <input type="text" placeholder="Enter Members" name="members" id="members" required />
+            </td>
+            <td>
+              <input type="text" placeholder="Enter Project Name" name="name" id="name" required />
+            </td>
+            <td>
+              <input type="text" placeholder="Project URL" name="url" id="url" required />
+            </td>
+            <td>
+              <button type="submit">💾</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </form>
   </body>
 </html>
