@@ -107,7 +107,15 @@ function prepareEdit(id) {
   document.getElementById("members").value = team.members;
   document.getElementById("name").value = team.name;
   document.getElementById("url").value = team.url;
+  // writeTeam();
 }
+
+// const writeTeam = team => {
+//   document.getElementById("promotion").value = team.promotion;
+//   document.getElementById("members").value = team.members;
+//   document.getElementById("name").value = team.name;
+//   document.getElementById("url").value = team.url;
+// };
 
 function initEvents() {
   const form = document.getElementById("editForm");
@@ -118,7 +126,25 @@ function initEvents() {
       const id = e.target.dataset.id;
       deleteTeamRequest(id).then(status => {
         if (status.success) {
-          window.location.reload();
+          // 1.adauga datele in table
+          //1.1 adaug team in allTeams
+          allTeams.push(team);
+          // [...allTeams, team]; cu spread
+          // 2. apelam displayTeams()
+          displayTeams(allTeams);
+          // 3. clear inputs
+
+          // document.getElementById("promotion").value = "";
+          // document.getElementById("members").value = "";
+          // document.getElementById("name").value = "";
+          // document.getElementById("url").value ="";
+          // writeTeam({
+          //   promotion: "",
+          //   name: "",
+          //   url: "",
+          //   members: ""
+          // });
+          e.target.reset();
         }
       });
     } else if (e.target.matches("a.edit-btn")) {
