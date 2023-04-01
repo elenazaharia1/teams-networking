@@ -76,7 +76,15 @@ function getTeamsHTML(teams) {
     .join("");
 }
 
+let oldDisplayTeams;
+
 function displayTeams(teams) {
+  if (oldDisplayTeams === teams) {
+    console.log("same teams to display");
+    return;
+  }
+  console.info(oldDisplayTeams, teams);
+  oldDisplayTeams = teams;
   document.querySelector("#teams tbody").innerHTML = getTeamsHTML(teams);
 }
 
@@ -97,9 +105,18 @@ function onSubmit(e) {
     updateTeamRequest(team).then(status => {
       if (status.success) {
         // load new teams...?
-        loadTeams();
+        // loadTeams();
         // TODO don't load teams
-        //displayTeams(allTeams);
+        allTeams = [...allTeams];
+        const editedTeam = allTeams.find(team => team.id === editId);
+        editedTeam.promotion = team.promotion;
+        editedTeam.url = team.url;
+        editedTeam.members = team.members;
+        editedTeam.name = team.name;
+
+        console.log(team, editedTeam, "editedTeam");
+
+        displayTeams(allTeams);
         e.target.reset();
         //e.target este formularul aici
       }
@@ -111,8 +128,8 @@ function onSubmit(e) {
         //   1.0. adaug id in team
         team.id = status.id;
         //   1.1. addaug team in allTeams
-        allTeams.push(team);
-        //allTeams = [...allTeams, team]
+        // allTeams.push(team);
+        allTeams = [...allTeams, team];
         //   1.2. apelam displayTeams(allTeams);
         displayTeams(allTeams);
         // 2. stergem datele din inputuri
@@ -134,7 +151,6 @@ function initEvents() {
   const form = document.getElementById("editForm");
   form.addEventListener("submit", onSubmit);
   form.addEventListener("reset", () => {
-    console.log("reset");
     editId = undefined;
   });
 
