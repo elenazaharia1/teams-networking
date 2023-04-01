@@ -107,14 +107,24 @@ function onSubmit(e) {
         // load new teams...?
         // loadTeams();
         // TODO don't load teams
-        allTeams = [...allTeams];
-        const editedTeam = allTeams.find(team => team.id === editId);
-        editedTeam.promotion = team.promotion;
-        editedTeam.url = team.url;
-        editedTeam.members = team.members;
-        editedTeam.name = team.name;
+        // allTeams = [...allTeams];
+        // const editedTeam = allTeams.find(team => team.id === editId);
+        // editedTeam.promotion = team.promotion;
+        // editedTeam.url = team.url;
+        // editedTeam.members = team.members;
+        // editedTeam.name = team.name;
+        // console.log(team, editedTeam, "editedTeam");
 
-        console.log(team, editedTeam, "editedTeam");
+        //asa creem un nou array cu map = ***allTeams = allTeams.map(team => team)***;
+        allTeams = allTeams.map(t => {
+          if (t.id === team.id) {
+            return {
+              ...t,
+              ...team
+            };
+          }
+          return t;
+        });
 
         displayTeams(allTeams);
         e.target.reset();
