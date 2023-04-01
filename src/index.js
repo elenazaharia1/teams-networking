@@ -101,6 +101,7 @@ function onSubmit(e) {
         // TODO don't load teams
         //displayTeams(allTeams);
         e.target.reset();
+        //e.target este formularul aici
       }
     });
   } else {
@@ -132,6 +133,10 @@ function prepareEdit(id) {
 function initEvents() {
   const form = document.getElementById("editForm");
   form.addEventListener("submit", onSubmit);
+  form.addEventListener("reset", () => {
+    console.log("reset");
+    editId = undefined;
+  });
 
   document.querySelector("#teams tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
