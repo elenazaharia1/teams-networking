@@ -61,14 +61,13 @@ function loadTeams() {
   });
 }
 
-function onSubmit(e) {
+async function onSubmit(e) {
   e.preventDefault();
   const team = readTeam();
   if (editId) {
     team.id = editId;
     updateTeamRequest(team).then(status => {
       if (status.success) {
-        // load new teams...?
         // loadTeams();
         // TODO don't load teams
         // allTeams = [...allTeams];
@@ -96,21 +95,20 @@ function onSubmit(e) {
       }
     });
   } else {
-    createTeamRequest(team).then(status => {
-      if (status.success) {
-        // 1. adaugam datele in table...
-        //   1.0. adaug id in team
-        team.id = status.id;
-        //   1.1. addaug team in allTeams
-        // allTeams.push(team);
-        allTeams = [...allTeams, team];
-        //   1.2. apelam displayTeams(allTeams);
-        displayTeams(allTeams);
-        // 2. stergem datele din inputuri
-        //writeTeam({ promotion: "", name: "", url: "", members: "" });
-        e.target.reset();
-      }
-    });
+    const status = await createTeamRequest(team);
+    if (status.success) {
+      // 1. adaugam datele in table...
+      //   1.0. adaug id in team
+      team.id = status.id;
+      //   1.1. addaug team in allTeams
+      // allTeams.push(team);
+      allTeams = [...allTeams, team];
+      //   1.2. apelam displayTeams(allTeams);
+      displayTeams(allTeams);
+      // 2. stergem datele din inputuri
+      //writeTeam({ promotion: "", name: "", url: "", members: "" });
+      e.target.reset();
+    }
   }
 }
 
@@ -131,12 +129,12 @@ function initEvents() {
   document.querySelector("#teams tbody").addEventListener("click", async e => {
     if (e.target.matches("a.remove-btn")) {
       const id = e.target.dataset.id;
-      deleteTeamRequest(id).then(status => {
-        if (status.success) {
-          loadTeams();
-          // TODO homework: don't load all teams...
-        }
-      });
+      // deleteTeamRequest(id).then(status => {
+      //   if (status.success) {
+      //     loadTeams();
+      //     // TODO homework: don't load all teams...
+      //   }
+      // });
 
       const status = await deleteTeamRequest(id);
       if (status.success) {
