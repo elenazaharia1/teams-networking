@@ -1,6 +1,6 @@
-import debounce from "lodash/debounce";
+// import debounce from "lodash/debounce";
 import { loadTeamsRequest, createTeamRequest, deleteTeamRequest, updateTeamRequest } from "./requests";
-import { $, sleep } from "./utilities";
+import { $, sleep, debounce } from "./utilities";
 // const utilities = require('./utilities');
 
 let allTeams = [];
@@ -48,7 +48,7 @@ function displayTeams(teams) {
     console.warn("same teams to display", oldDisplayTeams, teams);
     return;
   }
-  console.info(oldDisplayTeams, teams);
+  //console.info(oldDisplayTeams, teams);
   oldDisplayTeams = teams;
   document.querySelector("#teams tbody").innerHTML = getTeamsHTML(teams);
 }
@@ -87,6 +87,7 @@ async function onSubmit(e) {
       allTeams = [...allTeams, team];
     }
   }
+
   if (status.success) {
     displayTeams(allTeams);
     e.target.reset();
@@ -102,12 +103,12 @@ function prepareEdit(id) {
 
 function searchTeams(search) {
   return allTeams.filter(team => {
-    return team.promotion.indexOf(search) >= 0;
+    return team.promotion.indexOf(search) > -1;
   });
 }
 
 function initEvents() {
-  const form = document.getElementById("editForm");
+  const form = $("#editForm");
   form.addEventListener("submit", onSubmit);
   form.addEventListener("reset", () => {
     editId = undefined;
@@ -116,14 +117,13 @@ function initEvents() {
   $("#search").addEventListener(
     "input",
     debounce(e => {
-      const search = e.target.value;
-      const teams = searchTeams(search);
+      const teams = searchTeams(e.target.value);
       displayTeams(teams);
-      console.log("gggg");
-    }, 1000)
+      console.info("search");
+    }, 300)
   );
 
-  document.querySelector("#teams tbody").addEventListener("click", async e => {
+  $("#teams tbody").addEventListener("click", async e => {
     if (e.target.matches("a.remove-btn")) {
       const id = e.target.dataset.id;
       const status = await deleteTeamRequest(id);
@@ -142,14 +142,14 @@ loadTeams();
 initEvents();
 
 // TODO move in external file
-console.info("sleep");
-sleep(2000).then(r => {
-  console.info("done1", r);
-});
-console.warn("after sleep");
+// console.info("sleep");
+// sleep(2000).then(r => {
+//   console.info("done1", r);
+// });
+// console.warn("after sleep");
 
-(async () => {
-  console.info("sleep2");
-  var r2 = await sleep(5000);
-  console.warn("done2", r2);
-})();
+// (async () => {
+//   console.info("sleep2");
+//   var r2 = await sleep(5000);
+//   console.warn("done2", r2);
+// })();
