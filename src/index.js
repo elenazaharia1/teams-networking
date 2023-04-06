@@ -1,5 +1,6 @@
-import { createTeamRequest, deleteTeamRequest, loadTeamsRequest, updateTeamRequest } from "./requests";
+import { loadTeamsRequest, createTeamRequest, deleteTeamRequest, updateTeamRequest } from "./requests";
 import { sleep } from "./utilities";
+// const utilities = require('./utilities');
 
 let allTeams = [];
 let editId;
@@ -41,10 +42,9 @@ function getTeamsHTML(teams) {
 }
 
 let oldDisplayTeams;
-
 function displayTeams(teams) {
   if (oldDisplayTeams === teams) {
-    console.log("same teams to display");
+    console.warn("same teams to display", oldDisplayTeams, teams);
     return;
   }
   console.info(oldDisplayTeams, teams);
@@ -66,34 +66,23 @@ async function onSubmit(e) {
   const team = readTeam();
   if (editId) {
     team.id = editId;
-    updateTeamRequest(team).then(status => {
-      if (status.success) {
-        // loadTeams();
-        // TODO don't load teams
-        // allTeams = [...allTeams];
-        // const editedTeam = allTeams.find(team => team.id === editId);
-        // editedTeam.promotion = team.promotion;
-        // editedTeam.url = team.url;
-        // editedTeam.members = team.members;
-        // editedTeam.name = team.name;
-        // console.log(team, editedTeam, "editedTeam");
+    const status = await updateTeamRequest(team);
+    if (status.success) {
+      // load new teams...?
+      //loadTeams();
+      allTeams = allTeams.map(t => {
+        if (t.id === team.id) {
+          return {
+            ...t,
+            ...team
+          };
+        }
+        return t;
+      });
 
-        //asa creem un nou array cu map = ***allTeams = allTeams.map(team => team)***;
-        allTeams = allTeams.map(t => {
-          if (t.id === team.id) {
-            return {
-              ...t,
-              ...team
-            };
-          }
-          return t;
-        });
-
-        displayTeams(allTeams);
-        e.target.reset();
-        //e.target este formularul aici
-      }
-    });
+      displayTeams(allTeams);
+      e.target.reset();
+    }
   } else {
     const status = await createTeamRequest(team);
     if (status.success) {
@@ -101,7 +90,7 @@ async function onSubmit(e) {
       //   1.0. adaug id in team
       team.id = status.id;
       //   1.1. addaug team in allTeams
-      // allTeams.push(team);
+      //allTeams.push(team);
       allTeams = [...allTeams, team];
       //   1.2. apelam displayTeams(allTeams);
       displayTeams(allTeams);
@@ -129,13 +118,6 @@ function initEvents() {
   document.querySelector("#teams tbody").addEventListener("click", async e => {
     if (e.target.matches("a.remove-btn")) {
       const id = e.target.dataset.id;
-      // deleteTeamRequest(id).then(status => {
-      //   if (status.success) {
-      //     loadTeams();
-      //     // TODO homework: don't load all teams...
-      //   }
-      // });
-
       const status = await deleteTeamRequest(id);
       if (status.success) {
         loadTeams();
