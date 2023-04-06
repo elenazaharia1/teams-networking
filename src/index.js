@@ -1,3 +1,5 @@
+import { sleep } from "./utilities";
+
 let allTeams = [];
 let editId;
 
@@ -169,7 +171,8 @@ function initEvents() {
       const id = e.target.dataset.id;
       deleteTeamRequest(id).then(status => {
         if (status.success) {
-          window.location.reload();
+          loadTeams();
+          //TODO don't load all teams...
         }
       });
     } else if (e.target.matches("a.edit-btn")) {
@@ -181,3 +184,16 @@ function initEvents() {
 
 loadTeams();
 initEvents();
+
+// TODO move in external file
+console.info("sleep");
+sleep(2000).then(r => {
+  console.info("done1", r);
+});
+console.warn("after sleep");
+
+(async () => {
+  console.info("sleep2");
+  var r2 = await sleep(5000);
+  console.warn("done2", r2);
+})();
