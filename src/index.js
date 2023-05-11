@@ -8,8 +8,8 @@ let editId;
 
 function readTeam() {
   return {
-    promotion: document.getElementById("promotion").value,
-    members: document.getElementById("members").value,
+    promotion: $("#promotion").value,
+    members: $("#members").value,
     name: document.getElementById("name").value,
     url: document.getElementById("url").value
   };
@@ -54,11 +54,12 @@ function displayTeams(teams) {
 }
 
 function loadTeams() {
-  loadTeamsRequest().then(teams => {
+  return loadTeamsRequest().then(teams => {
     //window.teams = teams;
     allTeams = teams;
     console.info(teams);
     displayTeams(teams);
+    return teams;
   });
 }
 
@@ -138,18 +139,10 @@ function initEvents() {
   });
 }
 
-loadTeams();
+$("#editForm").classList.add("loading-mask");
+loadTeams().then(async () => {
+  await sleep(200);
+  $("#editForm").classList.remove("loading-mask");
+});
+
 initEvents();
-
-// TODO move in external file
-// console.info("sleep");
-// sleep(2000).then(r => {
-//   console.info("done1", r);
-// });
-// console.warn("after sleep");
-
-// (async () => {
-//   console.info("sleep2");
-//   var r2 = await sleep(5000);
-//   console.warn("done2", r2);
-// })();
